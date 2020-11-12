@@ -127,28 +127,3 @@ clf.fit(x,Y)
 prediction  = clf.predict(Xtrain)
 print ("accuracy:", metrics.accuracy_score(Ytrain,prediction))
 #metrics.log_loss(x)
-
-from sklearn.metrics import classification_report
-y_pred = clf.predict(x)
-y_true = clf.predict(Xtrain)
-print(classification_report(y_true, y_pred))
-
-y = label_binarize(y, classes=[0, 1, 2])
-n_classes = y.shape[1]
-
-fpr = dict()
-tpr = dict()
-roc_auc = dict()
-
-for i in range(n_classes):
-   fpr[i], tpr[i], _ = roc_curve(y_test[:, i], y_score[:, i])
-   roc_auc[i] = auc(fpr[i], tpr[i])
-   colors = ['blue', 'red', 'green']
-   for i, color in zip(range(n_classes), colors):
-    plt.plot(fpr[i], tpr[i], color=color,
-             label='ROC curve of class {0} (area = {1:0.2f})'
-             ''.format(i, roc_auc[i]))
-
-from sklearn.metrics import average_precision_score
-y_score = clf.predict_proba(Xtrain)
-print ("MLP\n", classification_report(y_score, y))
